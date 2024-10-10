@@ -31,15 +31,6 @@ python setup.py build
 python setup.py install
 ```
 
-## Installation
-You can install STAMapper via:
-```
-git clone https://github.com/zhanglabtools/STAMapper.git
-cd STAMapper
-python setup.py build
-python setup.py install
-```
-
 ## Datasets
 All datasets used in this paper are available for download from the following websites. 
 
