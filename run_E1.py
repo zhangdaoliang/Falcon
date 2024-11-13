@@ -58,7 +58,6 @@ sc.pp.normalize_total(adata, target_sum=1e4)
 sc.pp.log1p(adata)
 # sc.pp.scale(adata, zero_center=False, max_value=10)
 
-
 adata.obs['Ground Truth'] = labeldf["label"]
 adata.obs['ground_truth'] = adata.obs['Ground Truth']
 prefilter_genes(adata, min_cells=3)  # avoiding all genes are zeros
@@ -75,69 +74,8 @@ a=adata.obsm["spatial"]
 adata.obsm["adj"] = calculate_adj_matrix(adata)
 adata= train_model.train(adata,k,n_epochs=500,h=[3000,3000],radius=0,l=l,
                          lr=1e-6, weight_coef=0.5, weight_selfExp=0.0005)
-# 78 epoch=78
 obs_df = adata.obs.dropna()
 # obs_df.to_csv("result/{}_type_stMMR.csv".format(section_id))
 ARI = adjusted_rand_score(obs_df['stMGSC'], obs_df['Ground Truth'])
 print('Adjusted rand index = %.5f' % ARI)
-# now = datetime.now()
-# dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
-# with open("Data/out.txt", "a") as file:
-#     file.write(
-#         dt_string + "---,dataset:{},ARI:{},r:{}\n"
-#         .format(section_id, ARI,r)
-#         )
 
-#
-ax=sc.pl.scatter(adata, alpha=1, x="x", y="y", color="stMGSC", legend_fontsize=18, show=False,
-                   size=50000 / adata.shape[0])
-
-title='stMGSC (ARI=%.2f)' % ARI
-ax.set_title(title, fontsize=23)
-ax.set_aspect('equal', 'box')
-ax.set_xticks([])
-ax.set_yticks([])
-ax.axes.invert_yaxis()
-plt.xlabel('')
-plt.ylabel('')
-plt.savefig("{}_{}.pdf".format(section_id, "stMGSC"))
-plt.show()
-
-
-ax=sc.pl.scatter(adata, alpha=1, x="x", y="y", color="Ground Truth", legend_fontsize=18, show=False,title='Ground Truth',
-                   size=50000 / adata.shape[0])
-title='Ground Truth'
-ax.set_title(title, fontsize=23)
-ax.set_aspect('equal', 'box')
-ax.set_xticks([])
-ax.set_yticks([])
-ax.axes.invert_yaxis()
-plt.xlabel('')
-plt.ylabel('')
-plt.savefig("{}_{}.pdf".format(section_id, "GT"))
-plt.show()
-
-
-
-
-# sc.pl.scatter(adata, alpha=1, x="x", y="y", color=["stMGSC", "Ground Truth"], legend_fontsize=18, show=True,
-#     title=['stMGSC (ARI=%.2f)' % ARI, "Ground Truth"],
-#                    size=100000 / adata.shape[0],save=section_id)
-
-# plt.rcParams["figure.figsize"] = (3, 3)
-# sc.pl.spatial(adata, color=["stMGSC", "Ground Truth"], title=['stMGSC (ARI=%.2f)' % ARI, "Ground Truth"],
-#            save=section_id)
-# #
-# sc.pp.neighbors(adata, use_rep='emb_pca')
-# sc.tl.umap(adata)
-# plt.rcParams["figure.figsize"] = (3, 3)
-# sc.pl.umap(adata, color=["stMGSC", "Ground Truth"], title=['stMGSC (ARI=%.2f)' % ARI, "Ground Truth"],
-#            save=section_id,size=100)
-#
-# sc.tl.rank_genes_groups(adata, "stMGSC", method='wilcoxon',corr_method="benjamini-hochberg")
-
-# sc.pl.rank_genes_groups(adata, n_genes=25, sharey=False)
-# df  = sc.get.rank_genes_groups_df(adata, group="4",pval_cutoff=0.01,log2fc_min=1.5)
-# df = df.sort_values(by="scores", ascending=False)
-# df.to_csv('HBD4.csv')
-# print(df)
