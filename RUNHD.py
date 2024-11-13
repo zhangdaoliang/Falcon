@@ -35,17 +35,15 @@ sc.pl.spatial(adata, color="stMGSC",save= "HD_stMGSC",title='Falcon',s=10)
 #                     header=0, index_col=0, sep=',')
 # adata.obsm["im_re"] = im_re
 #
-# # 设定你要删除的细胞比例
-# fraction_to_remove = 0.8  # 例如删除10%的细胞
+# fraction_to_remove = 0.8  
 #
-# # 确定需要删除的细胞数量
 # num_cells_to_remove = int(adata.n_obs * fraction_to_remove)
 #
-# # 随机选择要删除的细胞索引
-# # np.random.seed(42)  # 设定随机种子以获得可重复的结果
+
+# # np.random.seed(42)  
 # cells_to_remove = np.random.choice(adata.obs_names, num_cells_to_remove, replace=False)
 #
-# # 删除这些细胞
+
 # adataT = adata[~adata.obs_names.isin(cells_to_remove)].copy()
 #
 # sc.pp.highly_variable_genes(adataT, flavor="seurat_v3", n_top_genes=3000)
