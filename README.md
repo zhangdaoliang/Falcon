@@ -27,8 +27,13 @@ pip install -r requirements.txt
 ```
 ### Install Falocn
 ```
+git clone https://github.com/zhangdaoliang/Falcon.git
+
+cd Falcon
+
 python setup.py build
-python setup.py install
+
+python setup.py install --user
 ```
 
 ## Datasets
