@@ -74,7 +74,7 @@ Reproduce the result of article.
 - melanoma:
 
   ```python  
-  python fish.py
+  python run_zebrafish.py
   ```
 
 ## Contact
